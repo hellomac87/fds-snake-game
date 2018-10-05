@@ -73,7 +73,10 @@ SnakeGameLogic.prototype.nextState = function() {
   }
 
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y){
-    this.joints
+    this.joints.push({
+      x: this.joints[0].x,
+      y: this.joints[0].y
+    });
   }
   console.log(`nextState`);
   return true;
