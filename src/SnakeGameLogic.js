@@ -43,64 +43,40 @@ SnakeGameLogic.prototype.nextState = function() {
   // 한 번 움직여야 할 타이밍마다 실행되는 함수
   // 게임이 아직 끝나지 않았으면 `true`를 반환
   // 게임이 끝났으면 `false`를 반환
-  if(this.keys === 'down'){
+  if (this.keys === 'down') {
     this.joints.unshift({
       x: this.joints[0].x,
       y: this.joints[0].y + 1
     });
-    this.joints.pop();
   }
   if (this.keys === 'up') {
     this.joints.unshift({
       x: this.joints[0].x,
       y: this.joints[0].y - 1
     });
-    this.joints.pop();
   }
   if (this.keys === 'right') {
     this.joints.unshift({
       x: this.joints[0].x + 1,
       y: this.joints[0].y
     });
-    this.joints.pop();
   }
   if (this.keys === 'left') {
     this.joints.unshift({
       x: this.joints[0].x - 1,
       y: this.joints[0].y
     });
-    this.joints.pop();
   }
-
-  if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y){
-    if (this.keys === 'down') {
-      this.joints.push({
-        x: this.joints[0].x,
-        y: this.joints[0].y - this.joints.length
-      });
-    }
-    if (this.keys === 'up') {
-      this.joints.push({
-        x: this.joints[0].x,
-        y: this.joints[0].y + this.joints.length
-      });
-    }
-    if (this.keys === 'right') {
-      this.joints.push({
-        x: this.joints[0].x - this.joints.length,
-        y: this.joints[0].y
-      });
-    }
-    if (this.keys === 'left') {
-      this.joints.push({
-        x: this.joints[0].x + this.joints.length,
-        y: this.joints[0].y
-      });
-    }
-  }
-
+  this.joints.pop();
   
+  
+  console.log(this.joints[0].x, this.joints[0].y)
   console.log(`nextState`);
+
+  // 게임 끝내기
+  if (this.joints[0].x >= COLS || this.joints[0].x < 0 || this.joints[0].y >= ROWS || this.joints[0].y < 0) {
+    return false;
+  }
   return true;
 }
 
