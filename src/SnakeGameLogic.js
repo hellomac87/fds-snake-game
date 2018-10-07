@@ -14,7 +14,14 @@ function SnakeGameLogic() {
   // 먹이의 좌표
   this.fruit = {x: 3, y: 5};
 }
-
+SnakeGameLogic.prototype.feed = function(){
+  if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
+    this.fruit.x = Math.floor(Math.random() * COLS);
+    this.fruit.y = Math.floor(Math.random() * ROWS);
+  } else {
+    this.joints.pop();
+  }
+}
 SnakeGameLogic.prototype.up = function() {
   // 위쪽 화살표 키를 누르면 실행되는 함수
   this.keys = "up";
@@ -48,50 +55,30 @@ SnakeGameLogic.prototype.nextState = function() {
       x: this.joints[0].x,
       y: this.joints[0].y + 1
     });
-    if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
-      this.fruit.x = Math.floor(Math.random() * COLS);
-      this.fruit.y = Math.floor(Math.random() * ROWS);
-    } else {
-      this.joints.pop();
-    }
+    this.feed();
   }
   if (this.keys === 'up') {
     this.joints.unshift({
       x: this.joints[0].x,
       y: this.joints[0].y - 1
     });
-    if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
-      this.fruit.x = Math.floor(Math.random() * COLS);
-      this.fruit.y = Math.floor(Math.random() * ROWS);
-    } else {
-      this.joints.pop();
-    }
+    this.feed();
   }
   if (this.keys === 'right') {
     this.joints.unshift({
       x: this.joints[0].x + 1,
       y: this.joints[0].y
     });
-    if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
-      this.fruit.x = Math.floor(Math.random() * COLS);
-      this.fruit.y = Math.floor(Math.random() * ROWS);
-    } else {
-      this.joints.pop();
-    }
+    this.feed();
   }
   if (this.keys === 'left') {
     this.joints.unshift({
       x: this.joints[0].x - 1,
       y: this.joints[0].y
     });
-    if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
-      this.fruit.x = Math.floor(Math.random() * COLS);
-      this.fruit.y = Math.floor(Math.random() * ROWS);
-    }else{
-      this.joints.pop();
-    }   
+    this.feed();
   }
-  
+
   console.log(`nextState`);
   // 게임 끝내기
   if (this.joints[0].x >= COLS || this.joints[0].x < 0 || this.joints[0].y >= ROWS || this.joints[0].y < 0) {
