@@ -51,6 +51,7 @@ export default class SnakeGame {
     } else {
       this.updateTable();
       this.timeoutID = setTimeout(this.nextFrame, this.delay);
+      this.delay = this.delay - 20;
     }
     this.draw();
   }
