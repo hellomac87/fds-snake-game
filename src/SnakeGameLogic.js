@@ -1,4 +1,4 @@
-import {ROWS, COLS} from './config';
+import { ROWS, COLS, INITIAL_DELAY} from './config';
 
 // NOTE: ROWS, COLS에는 행의 개수, 열의 개수가 저장되어 있습니다.
 // 이 변수를 활용해서 코드를 작성하세요!
@@ -79,6 +79,13 @@ SnakeGameLogic.prototype.nextState = function() {
     this.feed();
   }
 
+  // 몸통 겹치기 체크
+  for (let i = 0; i < this.joints.length - 1; i++) {
+    if(this.joints[0].x === this.joints[i+1].x && this.joints[0].y === this.joints[i+1].y){
+      return false;
+    }
+  }
+  
   console.log(`nextState`);
   // 게임 끝내기
   if (this.joints[0].x >= COLS || this.joints[0].x < 0 || this.joints[0].y >= ROWS || this.joints[0].y < 0) {
