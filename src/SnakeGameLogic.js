@@ -73,11 +73,33 @@ SnakeGameLogic.prototype.nextState = function() {
   }
 
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y){
-    this.joints.push({
-      x: this.joints[0].x,
-      y: this.joints[0].y
-    });
+    if (this.keys === 'down') {
+      this.joints.push({
+        x: this.joints[0].x,
+        y: this.joints[0].y - this.joints.length
+      });
+    }
+    if (this.keys === 'up') {
+      this.joints.push({
+        x: this.joints[0].x,
+        y: this.joints[0].y + this.joints.length
+      });
+    }
+    if (this.keys === 'right') {
+      this.joints.push({
+        x: this.joints[0].x - this.joints.length,
+        y: this.joints[0].y
+      });
+    }
+    if (this.keys === 'left') {
+      this.joints.push({
+        x: this.joints[0].x + this.joints.length,
+        y: this.joints[0].y
+      });
+    }
   }
+
+  
   console.log(`nextState`);
   return true;
 }
