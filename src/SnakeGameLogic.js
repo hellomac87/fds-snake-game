@@ -18,6 +18,15 @@ SnakeGameLogic.prototype.feed = function(){
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
     this.fruit.x = Math.floor(Math.random() * COLS);
     this.fruit.y = Math.floor(Math.random() * ROWS);
+
+    // 몸과 겹쳐서 먹이가 생겼을 시
+    this.joints.map((item) => {
+      if(item.x === this.fruit.x && item.y === this.fruit.y){
+        this.fruit.x = Math.floor(Math.random() * COLS);
+        this.fruit.y = Math.floor(Math.random() * ROWS);
+      }
+    });
+
   } else {
     this.joints.pop();
   }
